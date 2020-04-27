@@ -16,6 +16,10 @@ function eventListeners() {
 
 	// Procesar las notas borradas
 	listaNotas.addEventListener('click', borrarNota);
+
+	// Contenido Cargado
+	// Similar a document ready de jQuery
+	document.addEventListener('DOMContentLoaded', LocalStoragePreparado);
 }
 
 /*=============================================>>>>>
@@ -73,19 +77,21 @@ function agregarNotaLocalStorage(nota){
 	// Añadir nueva nota
 	lasNotas.push(nota);
 
-	// convertir de string a arreglo para local storage
-	localStorage.setItem('anotaciones', JSON.stringify(lasNotas));
+	// Formatear las notas en un formato estilo JSON
+	// Esto permite pasar la información en un arreglo sin tener que recurrir a multiples elementos independientes en el Local Storage
+	localStorage.setItem('notas', JSON.stringify(lasNotas));
 
 	// Agregar valor dentro de Local Storage
-	// localStorage.setItem('anotaciones', nota);
+	// localStorage.setItem('notas', nota);
+	// la linea ya no es necesaria al ajustar el detalle de información compatible con el formato JSON
 }
 
-/* OBTENER NOTAS DE LOCAL STORAGE */
+/* OBTENER NOTAS DE LOCAL STORAGE SI ES QUE EXISTEN */
 function obtenerNotasAnteriores(){
 	let notasMemoria;
 
 	// Revisar valores de Local Storage
-	if(localStorage.getItem('anotaciones') === null ){
+	if(localStorage.getItem('notas') === null ){
 
 		console.log('no hay notas en memoria');
 		notasMemoria = [];
@@ -93,9 +99,36 @@ function obtenerNotasAnteriores(){
 	} else {
 
 		console.log('hay notas en memoria');
-		notasMemoria = JSON.parse(localStorage.getItem('anotaciones'));
+		// Al formatear el elemento a algo similar en estructura a JSON, es posible convertirlo a tal
+		notasMemoria = JSON.parse(localStorage.getItem('notas'));
 
 	}
 
 	return notasMemoria;
+}
+
+/* COMPROBAR QUE LA INFORMACION DE LOCAL STORAGE ESTE CARGADA */
+function LocalStoragePreparado() {
+	let notasLocalStorage;
+
+	// Solicitar información existente sobre notas
+	notasLocalStorage = obtenerNotasAnteriores();
+
+	// console.log(notasLocalStorage);
+
+	notasLocalStorage.forEach( (nota) => {
+		// Configurar boton para eliminar nota
+		const botonBorrar = document.createElement('a');
+		botonBorrar.classList = 'borrar-nota';
+		botonBorrar.innerText = 'X';
+
+		// Crear elemento y añadir contenido a la lista
+		const nuevaNota = document.createElement('li');
+		nuevaNota.innerText = nota;
+		// Añadir boton de borrar a la nota
+		nuevaNota.appendChild(botonBorrar);
+		// Agregar a la lista de notas
+		listaNotas.appendChild(nuevaNota);
+	});
+
 }
