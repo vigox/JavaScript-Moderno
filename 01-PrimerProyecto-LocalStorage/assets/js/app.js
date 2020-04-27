@@ -11,14 +11,18 @@ eventListeners();
 
 // Definir Event Listeners de forma que no sean globales
 function eventListeners() {
+	// Envio de Formulario
 	document.querySelector("#formulario").addEventListener('submit', agregarNota);
+
+	// Procesar las notas borradas
+	listaNotas.addEventListener('click', borrarNota);
 }
 
 /*=============================================>>>>>
 = FUNCIONES =
 ===============================================>>>>>*/
 
-// Añadir nota del formulario
+/* AÑADIR NOTA DEL FORMULARIO */
 function agregarNota(e) {
 	e.preventDefault();
 	console.log('Formulario Enviado');
@@ -40,4 +44,30 @@ function agregarNota(e) {
 	listaNotas.appendChild(nuevaNota);
 
 	console.log(nota);
+
+	// Añadir nota a Local Storage
+	agregarNotaLocalStorage(nota);
+}
+
+/* BORRAR NOTA DEL DOM */
+function borrarNota(e){
+	e.preventDefault();
+
+	// className es ideal en este caso y de esta manear porque solo existe una clase en los elementos
+	if (e.target.className === 'borrar-nota') {
+		// definir elemento padre del enlace / nota [li]
+		e.target.parentElement.remove();
+		console.log('Nota Eliminada');
+	} else {
+		console.log('click en la lista');
+	}
+}
+
+/* AGREGAR NOTA A LOCAL STORAGE */
+function agregarNotaLocalStorage(nota){
+	// Para almacenar las notas existentes
+	let lasNotas;
+
+	// Agregar valor dentro de Local Storage
+	localStorage.setItem('anotaciones', nota);
 }
