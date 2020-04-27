@@ -68,6 +68,34 @@ function agregarNotaLocalStorage(nota){
 	// Para almacenar las notas existentes
 	let lasNotas;
 
+	lasNotas = obtenerNotasAnteriores();
+
+	// Añadir nueva nota
+	lasNotas.push(nota);
+
+	// convertir de string a arreglo para local storage
+	localStorage.setItem('anotaciones', JSON.stringify(lasNotas));
+
 	// Agregar valor dentro de Local Storage
-	localStorage.setItem('anotaciones', nota);
+	// localStorage.setItem('anotaciones', nota);
+}
+
+/* OBTENER NOTAS DE LOCAL STORAGE */
+function obtenerNotasAnteriores(){
+	let notasMemoria;
+
+	// Revisar valores de Local Storage
+	if(localStorage.getItem('anotaciones') === null ){
+
+		console.log('no hay notas en memoria');
+		notasMemoria = [];
+
+	} else {
+
+		console.log('hay notas en memoria');
+		notasMemoria = JSON.parse(localStorage.getItem('anotaciones'));
+
+	}
+
+	return notasMemoria;
 }
