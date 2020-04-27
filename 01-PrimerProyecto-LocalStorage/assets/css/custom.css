@@ -5,8 +5,8 @@ h1, h2 {
 #contenido {
     margin-top: 40px;
 }
-.borrar-tweet,
-.borrar-tweet:hover {
+.borrar-nota,
+.borrar-nota:hover {
     float: right;
     cursor: pointer;
     color: #f44336;
@@ -17,7 +17,17 @@ h1, h2 {
 button.button-primary,
 input[type="submit"].button-primary,
 input[type="reset"].button-primary,
-input[type="button"].button-primary {
+input[type="button"].button-primary,
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
 	background-color: #673ab7;
 	border-color: #673ab7;
 }
