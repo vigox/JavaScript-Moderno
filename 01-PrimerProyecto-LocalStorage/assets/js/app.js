@@ -62,8 +62,12 @@ function borrarNota(e){
 		// definir elemento padre del enlace / nota [li]
 		e.target.parentElement.remove();
 		console.log('Nota Eliminada');
+
+		// Eliminar datos pertinentes de Local Storage
+		borrarNotaLocalStorage(e.target.parentElement.innerText);
+
 	} else {
-		console.log('click en la lista');
+		// console.log('click en la lista');
 	}
 }
 
@@ -93,12 +97,14 @@ function obtenerNotasAnteriores(){
 	// Revisar valores de Local Storage
 	if(localStorage.getItem('notas') === null ){
 
-		console.log('no hay notas en memoria');
+		// console.log('no hay notas en memoria');
+
 		notasMemoria = [];
 
 	} else {
 
-		console.log('hay notas en memoria');
+		// console.log('hay notas en memoria');
+
 		// Al formatear el elemento a algo similar en estructura a JSON, es posible convertirlo a tal
 		notasMemoria = JSON.parse(localStorage.getItem('notas'));
 
@@ -131,4 +137,36 @@ function LocalStoragePreparado() {
 		listaNotas.appendChild(nuevaNota);
 	});
 
+}
+
+/* BORRAR NOTA E INFORMACION DE LOCAL STORAGE */
+function borrarNotaLocalStorage(notaLocal){
+	let baseNotas,
+		borrarNota;
+
+	// console.log(notaLocal);
+
+	// Eliminar X que sirve como boton de eliminar nota
+	borrarNota = notaLocal.substring(0, notaLocal.length - 1);
+
+	baseNotas = obtenerNotasAnteriores();
+
+	// el segundo parametro permite estar al tanto de que borrar al llamar la función splice()
+	baseNotas.forEach( (notaLocal, index) => {
+		console.log(notaLocal);
+
+		// Ver si nota actual de click es la misma que se está recorriendo actualmente en el forEach
+		if(borrarNota === notaLocal) {
+			console.log('NOTA MUST DIE');
+			// Para resolver eliminación de la nota adecuada
+			baseNotas.splice(index, 1);
+		}
+	});
+
+
+	console.log(borrarNota);
+	console.log(baseNotas);
+
+	// Actualizar info de Local Storage
+	localStorage.setItem('notas', JSON.stringify(baseNotas));
 }
