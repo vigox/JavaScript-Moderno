@@ -3,9 +3,11 @@
 ===============================================>>>>>*/
 const carrito = document.querySelector('#carrito');
 const listaCursos = document.querySelector('#lista-cursos');
+// Objetivo para agregar los cursos al carrito de compra
+const cursosCarrito = document.querySelector('#lista-carrito tbody');
 
-console.log(carrito);
-console.log(listaCursos);
+// console.log(carrito);
+// console.log(listaCursos);
 
 
 /*=============================================>>>>>
@@ -45,5 +47,37 @@ function alCarrito(e){
 
 /* OBTENER Y PROCESAR DATOS DEL CURSO AL CUAL SE LE DIO CLICK */
 function leerDatosCurso(cursoAgregado){
-	console.log(cursoAgregado);
+	// Obtener datos relevantes del curso agregado
+	const infoCurso = {
+		imagen: cursoAgregado.querySelector('img').src,
+		titulo: cursoAgregado.querySelector('h4').textContent,
+		precio: cursoAgregado.querySelector('.precio span').textContent,
+		id: cursoAgregado.querySelector('a').getAttribute('data-id')
+	}
+
+	// console.log(cursoAgregado);
+
+	// Información obtenida del curso, lista para usarse
+	console.log(infoCurso);
+
+	// Pasar la información a un formato de HTML
+	insertarCarrito(infoCurso);
+}
+
+/* PROCESAR LA INFORMACION OBTENIDA DEL CURSO A UN FORMATO HTML QUE CUMPLA CON LA INTERFAZ DEL SITIO */
+function insertarCarrito(infoCurso){
+	// Crear fila con información para los elementos agregados al carrito
+	const row = document.createElement('tr');
+	row.innerHTML = `
+		<td><img src="${infoCurso.imagen}" width="100"></td>
+		<td>${infoCurso.titulo}</td>
+		<td>${infoCurso.precio}</td>
+		<td>
+			<a href="#" class="borrar-curso" data-id="${infoCurso.id}">X</a>
+		</td>
+	`;
+
+	console.log(row);
+	// Agregar elemento procesado a la lista de elementos en el carrito
+	cursosCarrito.appendChild(row);
 }
