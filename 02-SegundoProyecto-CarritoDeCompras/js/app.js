@@ -67,7 +67,7 @@ function leerDatosCurso(cursoAgregado){
 	// console.log(cursoAgregado);
 
 	// Información obtenida del curso, lista para usarse
-	console.log(infoCurso);
+	// console.log(infoCurso);
 
 	// Pasar la información a un formato de HTML
 	insertarCarrito(infoCurso);
@@ -86,9 +86,12 @@ function insertarCarrito(infoCurso){
 		</td>
 	`;
 
-	console.log(row);
+	// console.log(row);
 	// Agregar elemento procesado a la lista de elementos en el carrito
 	cursosCarrito.appendChild(row);
+
+	// Almacenar los cursos agregados al carrito en Local Storage
+	guardarCursoLocalStorage(infoCurso);
 }
 
 
@@ -121,4 +124,37 @@ function vaciarCarrito(){
 
 	// Para evitar un posible salto al tratar de seguir el enlace
 	return false;
+}
+
+/* PROCESAR EL CURSO AGREGADO PARA QUE SE ALMACENE LA INFORMACION EN LOCAL STORAGE */
+function guardarCursoLocalStorage(infoCurso){
+	let memoriaCursos;
+
+	// Obtener la lista de valores de Local Storage para cursos en el carrito
+	memoriaCursos = obtenerCursosLocalStorage();
+
+	// Comprobar la comunicion de las funciones
+	console.log('success I guess');
+	// console.log(infoCurso);
+
+	// Agregar la información del curso agregado a la colección de cursos en el carrito
+	memoriaCursos.push(infoCurso);
+
+	// Guardar la información del carrito en Local Storage
+	localStorage.setItem( 'carrito de cursos', JSON.stringify(memoriaCursos) );
+}
+
+/* COMPROBAR Y LEER INFORMACION EN LOCAL STORAGE */
+function obtenerCursosLocalStorage(){
+	// Para almacenar la información
+	let memoriaCursosLS;
+
+	// Comprobar si existen datos en Local Storage
+	if(localStorage.getItem('carrito de cursos') === null ) {
+		memoriaCursosLS = [];
+	} else {
+		memoriaCursosLS = JSON.parse(localStorage.getItem('carrito de cursos'));
+	}
+
+	return memoriaCursosLS;
 }
