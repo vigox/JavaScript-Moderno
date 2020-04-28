@@ -18,6 +18,9 @@ carritoEventListeners();
 function carritoEventListeners(){
 	// Ejecutar al dar click en Agregar Al Carrito
 	listaCursos.addEventListener('click', alCarrito);
+
+	// Para eliminar un curso del carrito
+	carrito.addEventListener('click', quitarCurso);
 }
 
 
@@ -80,4 +83,22 @@ function insertarCarrito(infoCurso){
 	console.log(row);
 	// Agregar elemento procesado a la lista de elementos en el carrito
 	cursosCarrito.appendChild(row);
+}
+
+
+/* PARA QUITAR CURSO DEL CARRITO DEL DOM */
+// El parametro e para seleccionar el elemento que se quiere quitar y hacer DELEGATIOn
+function quitarCurso(e){
+	e.preventDefault();
+
+	let cursoEliminado;
+
+	if(e.target.classList.contains('borrar-curso')){
+		// TRAVERSING
+		// console.log(e.target.parentElement.parentElement);
+
+		e.target.parentElement.parentElement.remove();
+	}
+
+
 }
