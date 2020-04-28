@@ -103,16 +103,25 @@ function insertarCarrito(infoCurso){
 function quitarCurso(e){
 	e.preventDefault();
 
-	let cursoEliminado;
+	let cursoEliminado, idCurso;
 
 	if(e.target.classList.contains('borrar-curso')){
 		// TRAVERSING
 		// console.log(e.target.parentElement.parentElement);
 
-		e.target.parentElement.parentElement.remove();
+		// Preparar para eliminar el curso
+		cursoEliminado = e.target.parentElement.parentElement;
+		idCurso = cursoEliminado.querySelector('a').getAttribute('data-id');
+
+		// console.log(idCurso);
+
+		// quitar curso del DOM en lista de cursos del carrito
+		cursoEliminado.remove();
+
+		// Quitar el curso de Local Storage
+		eliminarCursoLocalStorage(idCurso);
+
 	}
-
-
 }
 
 /* PARA VACIAR TODO EL CARRITO */
@@ -125,8 +134,20 @@ function vaciarCarrito(){
 		cursosCarrito.removeChild(cursosCarrito.firstChild);
 	}
 
+	// Vaciar el contenido de Local Storage
+	vaciarLocalStorage();
+
 	// Para evitar un posible salto al tratar de seguir el enlace
 	return false;
+}
+
+/* VACIAR EL CONTENIDO EXISTENTE EN LOCAL STORAGE */
+function vaciarLocalStorage(){
+	// Puede borrar otros tipos de Local Storage en el mismo dominio
+	// localStorage.clear();
+
+	// Borra el contenido solo de un valor llave en Local Storage
+	localStorage.removeItem('carrito de cursos');
 }
 
 /* PROCESAR EL CURSO AGREGADO PARA QUE SE ALMACENE LA INFORMACION EN LOCAL STORAGE */
@@ -186,4 +207,26 @@ function leerLocalStorage(){
 		cursosCarrito.appendChild(row);
 	});
 
+}
+
+/* ELIMINAR INFORMACION DE CURSOS EN CARRITO DEL LOCAL STORAGE USANDO EL ID */
+function eliminarCursoLocalStorage(idCurso){
+	let cursosLSID;
+
+	cursosLSID = obtenerCursosLocalStorage();
+
+	// Parametro index para la evaluacion de iteracion en curso, y poder eliminar la posición actual en el arreglado manejado para la operación
+	cursosLSID.forEach((item, index) => {
+		// console.log(item.id);
+
+		// Evaluar si el ID del curso de la iteración actual es igual al ID del cuerso que se desea eliminar
+		if(item.id === idCurso){
+			console.log('there is response');
+			cursosLSID.splice(index, 1);
+		}
+	});
+
+	console.log(cursosLSID);
+	// Actualizar la información en Local Storage sobre el listado de cursos en el carrito
+	localStorage.setItem( 'carrito de cursos', JSON.stringify(cursosLSID) );
 }
