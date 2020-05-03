@@ -86,6 +86,19 @@ class Interfaz{
 
 		listadoGastos.appendChild(elementoGasto);
 	}
+
+	// Contenedor de Presupuesto Restante en Interfaz
+	presupuestoRestanteUI(cantidadGasto){
+		const valorRestante = document.querySelector('#restante');
+
+		// Leer valor de presupuestoRestante()
+		const presupuestoRestanteUsuario = cantidadPresupuesto.presupuestoRestante(cantidadGasto);
+
+		console.log(presupuestoRestanteUsuario);
+
+		// Actualizar información de presupesto en el HTML
+		valorRestante.innerHTML = `${presupuestoRestanteUsuario}`;
+	}
 }
 
 /*=============================================>>>>>
@@ -137,6 +150,8 @@ formularioAgregarGasto.addEventListener('submit', function(e){
 		ui.imprimirMensaje('Gasto agregado', 'correcto');
 
 		ui.agregarGastoListado(nombreGasto, cantidadGasto);
+
+		ui.presupuestoRestanteUI(cantidadGasto);
 	}
 
 });
