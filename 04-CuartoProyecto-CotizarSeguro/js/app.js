@@ -10,10 +10,13 @@ function Seguro(marca,periodo,tipo){
 	this.tipo = tipo;
 }
 
-// PROTOTYPE para hacer calculo de seguro
-/*Seguro.prototype.cotizarSeguro = function(informacionProporcionada){
-	console.log(informacionProporcionada);
-}*/
+/**
+** PROTOTYPE PARA HACER CALCULO DE SEGURO
+**/
+	/*Seguro.prototype.cotizarSeguro = function(informacionProporcionada){
+		console.log(informacionProporcionada);
+	}*/
+
 Seguro.prototype.cotizarSeguro = function(){
 	/*
 		1 - Americano - 1.15
@@ -65,7 +68,9 @@ function Interfaz(){
 	// Inicializar vacío
 }
 
-// Mostrar mensajes en HTML
+/**
+** PROTOTYPE PARA MOSTRAR MENSAJES EN HTML
+**/
 Interfaz.prototype.mostrarError = function(mensaje, tipoMensaje){
 	const div = document.createElement('div');
 
@@ -86,11 +91,53 @@ Interfaz.prototype.mostrarError = function(mensaje, tipoMensaje){
 	setTimeout(function(){
 		document.querySelector('.mensaje').remove();
 	}, 3000);
-};
+}
+
+/**
+** PROTOTYPE PARA MOSTRAR RESULTADO DE COTIZACION
+**/
+Interfaz.prototype.mostrarResultado = function(seguroSolicitado, cantidadSeguro){
+	// Elegir div contenedor para la información
+	const mostrarResultado = document.querySelector('#resultado');
+
+	// Mostrar marca seleccionada... aunque quizas hubiera sido mejor tener el value con nombres y no numeros
+	let marcaSeleccionada;
+
+	switch (seguroSolicitado.marca) {
+		case '1':
+				marcaSeleccionada = 'Americano';
+			break;
+		case '2':
+				marcaSeleccionada = 'Asiatico';
+			break;
+		case '3':
+				marcaSeleccionada = 'Europeo';
+			break;
+	}
+
+	// Crear div para albergar la información proporcionada
+	const div = document.createElement('div');
+
+	// Agregar la información proporcionada al div
+	div.innerHTML = `
+		<p>Resumen:</p>
+		<p>Marca: ${marcaSeleccionada}</p>
+		<p>Año: ${seguroSolicitado.periodo}</p>
+		<p>Tipo de Seguro: ${seguroSolicitado.tipo}</p>
+		<p>Total: ${cantidadSeguro}</p>
+	`;
+
+	// Agregear divi con la información al docoumento / HTML
+	mostrarResultado.appendChild(div);
+}
 
 /*=============================================>>>>>
 = EVENT LISTENERS =
 ===============================================>>>>>*/
+
+/**
+** LISTENER PARA ENVIO DE FORMULARIO
+**/
 const formulario = document.querySelector('#cotizar-seguro');
 
 formulario.addEventListener('submit', function(e){
@@ -128,9 +175,13 @@ formulario.addEventListener('submit', function(e){
 		const seguroSolicitado = new Seguro(marcaSeleccionada, modeloSeleccionado, tipoSeguro);
 
 		// Hacer cotización de seguro
-		const cantidad = seguroSolicitado.cotizarSeguro(seguroSolicitado);
+			// const cantidadSeguro = seguroSolicitado.cotizarSeguro(seguroSolicitado);
+		const cantidadSeguro = seguroSolicitado.cotizarSeguro();
 
 		console.log('All according to keikaku');
+
+		// Mostrar resultado del calculo del seguro
+		interfaz.mostrarResultado(seguroSolicitado, cantidadSeguro);
 
 	}
 
