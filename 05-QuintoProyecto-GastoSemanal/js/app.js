@@ -69,6 +69,23 @@ class Interfaz{
 		}, 2500 );
 
 	}
+
+	// Insertar gastos al HTML
+	agregarGastoListado( nombreGasto, cantidadGasto ) {
+		const listadoGastos = document.querySelector('#gastos ul');
+
+		// Crear li / elemento para el gasto en el HTML
+		const elementoGasto = document.createElement('li');
+		elementoGasto.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+
+		// Insertar el gasto
+		elementoGasto.innerHTML = `
+			${nombreGasto}
+			<span class="badge badge-primary badge-pill">$ ${cantidadGasto}</span>
+		`;
+
+		listadoGastos.appendChild(elementoGasto);
+	}
 }
 
 /*=============================================>>>>>
@@ -108,13 +125,18 @@ formularioAgregarGasto.addEventListener('submit', function(e){
 
 	// Comprobar que los gastos no estén vacíos
 	if( nombreGasto === '' || cantidadGasto === '' ) {
+		console.log("I'm sorry Dave, I'm afraid I can't do that");
 
 		// Parametros: Contenido de Mensaje y Tipo de Mensaje
 		ui.imprimirMensaje('Ocurrió un error', 'error');
 
-		console.log("I'm sorry Dave, I'm afraid I can't do that");
 	} else {
 		console.log('Dizque enviado');
+
+		// Insertar gasto al HTML
+		ui.imprimirMensaje('Gasto agregado', 'correcto');
+
+		ui.agregarGastoListado(nombreGasto, cantidadGasto);
 	}
 
 });
