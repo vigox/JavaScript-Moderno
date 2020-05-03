@@ -14,9 +14,31 @@ function Seguro(marca,periodo,tipo){
 ** CONSTRUCTOR DE INTERFAZ DE USUARIO
 **/
 function Interfaz(){
-
+	// Inicializar vacío
 }
 
+// Mostrar mensajes en HTML
+Interfaz.prototype.mostrarError = function(mensaje, tipoMensaje){
+	const div = document.createElement('div');
+
+	if(tipoMensaje === 'error') {
+		// div.classList = 'error';
+		div.classList.add('mensaje', 'error');
+	} else {
+		// div.classList = 'completo';
+		div.classList.add('mensaje', 'completo');
+	}
+
+	div.innerHTML = `${mensaje}`;
+
+	// Insertar el div con el mensaje / aviso
+	formulario.insertBefore(div, document.querySelector('.form-group'));
+
+	// Quitar el mensaje después de un cierto tiempo
+	setTimeout(function(){
+		document.querySelector('.mensaje').remove();
+	}, 3000);
+};
 
 /*=============================================>>>>>
 = EVENT LISTENERS =
@@ -49,10 +71,14 @@ formulario.addEventListener('submit', function(e){
 	// Revisar que no existan elementos vacíos
 	if( marcaSeleccionada === '' || modeloSeleccionado === '' || tipoSeguro === '' ){
 		// Interfaz Imprimiendo un error
+		interfaz.mostrarError('Hacen falta datos, revisa que todos los campos estén llenos e intenta de nuevo', 'error');
+
 		console.log("I'm sorry Dave, I'm afraid I can't do that");
+
 	} else {
 		// Instanciar Seguro y mostrar interfaz
 		console.log('All according to keikaku');
+
 	}
 
 
