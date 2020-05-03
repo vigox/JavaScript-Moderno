@@ -89,15 +89,43 @@ class Interfaz{
 
 	// Contenedor de Presupuesto Restante en Interfaz
 	presupuestoRestanteUI(cantidadGasto){
-		const valorRestante = document.querySelector('#restante');
+		const valorRestante = document.querySelector('span#restante');
 
 		// Leer valor de presupuestoRestante()
 		const presupuestoRestanteUsuario = cantidadPresupuesto.presupuestoRestante(cantidadGasto);
 
-		console.log(presupuestoRestanteUsuario);
+		// console.log('EL RESUMEN');
+		// console.log(cantidadPresupuesto.presupuesto);
+		// console.log(cantidadPresupuesto.restante);
 
 		// Actualizar información de presupesto en el HTML
 		valorRestante.innerHTML = `${presupuestoRestanteUsuario}`;
+
+		// Analizar cuanto presupuesto queda
+		this.comprobarPresupuesto();
+
+	}
+
+	// Cambiar de color presupuesto restante al irse acabando
+	comprobarPresupuesto(){
+		const presupuestoTotal = cantidadPresupuesto.presupuesto;
+
+		const presupuestoUsable = cantidadPresupuesto.restante;
+
+		// console.log(presupuestoTotal);
+		// console.log(presupuestoUsable);
+
+		// Comprobar el 25%
+          if( (presupuestoTotal / 4) > presupuestoUsable) {
+               const restante = document.querySelector('.restante');
+               restante.classList.remove('alert-success', 'alert-warning');
+               restante.classList.add('alert-danger');
+          } else if( (presupuestoTotal / 2) > presupuestoUsable) {
+               const restante = document.querySelector('.restante');
+               restante.classList.remove('alert-success');
+               restante.classList.add('alert-warning');
+          }
+
 	}
 }
 
