@@ -120,15 +120,25 @@ Interfaz.prototype.mostrarResultado = function(seguroSolicitado, cantidadSeguro)
 
 	// Agregar la información proporcionada al div
 	div.innerHTML = `
-		<p>Resumen:</p>
+		<p class="header">Resumen:</p>
 		<p>Marca: ${marcaSeleccionada}</p>
 		<p>Año: ${seguroSolicitado.periodo}</p>
 		<p>Tipo de Seguro: ${seguroSolicitado.tipo}</p>
 		<p>Total: ${cantidadSeguro}</p>
 	`;
 
+	// Agregar animacion de spinner
+	const spinner = document.querySelector('#cargando img');
+	spinner.style.display = 'block';
+
+	setTimeout(function(){
+		spinner.style.display = 'none';
+		// Agregear divi con la información al docoumento / HTML
+		mostrarResultado.appendChild(div);
+	}, 2500);
+
 	// Agregear divi con la información al docoumento / HTML
-	mostrarResultado.appendChild(div);
+	// mostrarResultado.appendChild(div);
 }
 
 /*=============================================>>>>>
@@ -171,6 +181,14 @@ formulario.addEventListener('submit', function(e){
 		console.log("I'm sorry Dave, I'm afraid I can't do that");
 
 	} else {
+		// Limpiar mensajes anteriores
+		const resultadosAnteriores = document.querySelector('#resultado div');
+
+		// Comprobar que existan resultados anteriores
+		if( resultadosAnteriores != null ) {
+			resultadosAnteriores.remove();
+		}
+
 		// Instanciar Seguro y mostrar interfaz
 		const seguroSolicitado = new Seguro(marcaSeleccionada, modeloSeleccionado, tipoSeguro);
 
