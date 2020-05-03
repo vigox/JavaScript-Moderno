@@ -23,6 +23,24 @@ class Presupuesto {
 	}
 }
 
+/**
+** CLASE DE INTERFAZ DE USUARIO
+**/
+class Interfaz{
+	insertarPresupuesto(cantidadBase){
+		console.log(cantidadBase);
+		console.log('As expected');
+
+		const presupuestoHTML = document.querySelector('span#total');
+
+		const restanteHTML = document.querySelector('span#restante');
+
+		// Insertar valores al HTML
+		presupuestoHTML.innerHTML = `${cantidadBase}`;
+		restanteHTML.innerHTML = `${cantidadBase}`;
+	}
+}
+
 /*=============================================>>>>>
 = EVENT LISTENERS =
 ===============================================>>>>>*/
@@ -33,6 +51,10 @@ if(presupuestoUsuario === null || presupuestoUsuario === '') {
 } else {
 	// Instanciar un presupuesto
 	cantidadPresupuesto = new Presupuesto(presupuestoUsuario);
+
+	// Instanciar la clase de interfaz
+	const ui = new Interfaz();
+	ui.insertarPresupuesto(cantidadPresupuesto.presupuesto);
 
 	console.log(cantidadPresupuesto);
 	console.log('all according to keikaku');
