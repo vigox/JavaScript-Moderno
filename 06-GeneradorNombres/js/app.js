@@ -15,7 +15,7 @@ formulario.addEventListener('submit', cargarNombres);
 function cargarNombres(e){
 	e.preventDefault();
 
-	console.log('All according to keikaku');
+
 
 	// Leer variables
 	const origen = document.querySelector('#origen');
@@ -45,8 +45,48 @@ function cargarNombres(e){
 		url += `results=${cantidadNombres}`;
 	}
 
-	console.log(origenS);
-	console.log(generoS);
-	console.log(cantidadNombres);
-	console.log(url);
+	// Conectar con AJAX
+	const xhr = new XMLHttpRequest();
+
+	// Abrir conexión
+	xhr.open('GET', url, true);
+
+	// Datos e impresiones del Template
+	xhr.onload = function(){
+		if(this.status === 200){
+			// console.log(this.responseText);
+			// console.log(JSON.parse(this.responseText));
+
+			// Almacenar información con nombres
+			const datosNombres = JSON.parse(this.responseText);
+
+			// Variable para almacenar el contenido en HTML
+			let contenidoHTML = '<h2>Nombres Generados</h2>';
+
+			// Contenedor en el DOM para la información
+			const divHTML = document.querySelector('#resultado');
+
+			//
+			contenidoHTML += '<ul class="lista">';
+
+			datosNombres.results.forEach((item) => {
+				// console.log(item.name.first);
+
+				contenidoHTML += `
+					<li>${item.name.first}</li>
+				`;
+			});
+
+			contenidoHTML += '</ul>';
+
+			divHTML.innerHTML = contenidoHTML;
+
+			// console.log(url);
+			// console.log(datosNombres.results);
+		}
+	}
+
+	// Enviar Request
+	xhr.send();
+
 }
