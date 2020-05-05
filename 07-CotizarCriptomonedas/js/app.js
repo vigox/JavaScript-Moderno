@@ -1,4 +1,9 @@
 /*=============================================>>>>>
+= CLASES INSTANCIADAS DE OTROS ARCHIVOS js =
+===============================================>>>>>*/
+const ui = new Interfaz();
+
+/*=============================================>>>>>
 = VARIABLES =
 ===============================================>>>>>*/
 const formulario = document.querySelector('#formulario');
@@ -30,6 +35,8 @@ function procesarFormulario(e) {
 	// Comprobar que moneda y cripto tengan valores
 	if(monedaS === '' || criptoS === '') {
 		console.log(`I'm sorry Dave, I'm afraid I can't do that`);
+
+		ui.mensajeInterfaz(`I'm sorry Dave, I'm afraid I can't do that`, `alert bg-danger text-center`);
 	} else {
 		console.log(`All according to keikaku`);
 	}
