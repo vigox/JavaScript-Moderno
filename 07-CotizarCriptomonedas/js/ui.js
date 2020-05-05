@@ -4,6 +4,26 @@
 // Una clase NO LLEVA () después de su nombre
 class Interfaz{
 
+	constructor() {
+		this.init();
+	}
+
+	/*----------- INICIALIZAR -----------*/
+	init() {
+		this.construirSelects();
+	}
+
+	/*----------- POBLAR LISTA DE CRIPTOS -----------*/
+	construirSelects() {
+		criptoAPI.obtenerCripto()
+			.then(criptoMonedas => {
+				console.log(criptoMonedas);
+			})
+	}
+
+
+	/*----------- MOSTRAR MENSAJES / ALERTAS -----------*/
+
 	mensajeInterfaz(mensaje, clases) {
 		const divMensaje = document.createElement(`div`);
 		divMensaje.className = clases;

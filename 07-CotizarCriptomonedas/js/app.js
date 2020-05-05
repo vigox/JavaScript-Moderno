@@ -1,6 +1,7 @@
 /*=============================================>>>>>
 = CLASES INSTANCIADAS DE OTROS ARCHIVOS js =
 ===============================================>>>>>*/
+const criptoAPI = new API(`dbf1b55f2614feb03a4e1ff56d2184ddc14d53604d16cdabc556a5a9d06b1069`);
 const ui = new Interfaz();
 
 /*=============================================>>>>>
