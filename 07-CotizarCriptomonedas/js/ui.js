@@ -66,4 +66,16 @@ class Interfaz{
 
 
 	}
+
+	/*----------- MOSTRAR COTIZACION -----------*/
+
+	// Se necesitan 3 valores dado al formato que maneja la API
+	mostrarResultados(resultados, monedaReal, criptoMoneda) {
+		// Pasar valores dinamicamente de Moneda / Cripto, para obtener un objeto más compacto y que se puede navegar más fácil
+		
+		// console.log(resultados);
+		// console.log(resultados[criptoMoneda]);
+		console.log(resultados[criptoMoneda][monedaReal])
+	}
+
 }

@@ -40,5 +40,12 @@ function procesarFormulario(e) {
 		ui.mensajeInterfaz(`I'm sorry Dave, I'm afraid I can't do that`, `alert bg-danger text-center`);
 	} else {
 		console.log(`All according to keikaku`);
+
+		criptoAPI.obtenerValores(monedaS, criptoS)
+			.then(datos => {
+				// console.log(datos);
+
+				ui.mostrarResultados(datos.resultados.RAW, monedaS, criptoS);
+			})
 	}
 }
