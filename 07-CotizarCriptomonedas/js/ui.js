@@ -16,8 +16,32 @@ class Interfaz{
 	/*----------- POBLAR LISTA DE CRIPTOS -----------*/
 	construirSelects() {
 		criptoAPI.obtenerCripto()
+
 			.then(criptoMonedas => {
-				console.log(criptoMonedas);
+
+				// console.log(criptoMonedas.criptoMonedas.Data);
+
+				// Navegar por el objeto
+				// Object.entries no recorre la informacion
+				// Toma la llave del objecto, su valor y los regresa en un arreglo
+				// En cierta manera, toma objectos y los convierte en arreglos
+				// console.log(Object.entries(criptoMonedas.criptoMonedas.Data));
+
+				// Contenedor de opciones de criptomoneda
+				const select = document.querySelector('#criptomoneda');
+
+				// Iterar resultados de la api
+				for( const [key, value]  of Object.entries(criptoMonedas.criptoMonedas.Data) ) {
+					// console.log(value);
+
+					// Añadir Symbol y nombre como opciones para select <-> option
+					const opcion = document.createElement(`option`);
+
+					opcion.value = value.Symbol;
+					opcion.appendChild(document.createTextNode(value.CoinName));
+
+					select.appendChild(opcion);
+				}
 			})
 	}
 

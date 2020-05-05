@@ -13,7 +13,7 @@ class API {
 		// Respuesta en JSON
 		const criptoMonedas = await obtenerCriptoURL.json();
 
-		console.log(criptoMonedas);
+		// console.log(criptoMonedas);
 
 		return {
 			criptoMonedas
